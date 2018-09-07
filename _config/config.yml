@@ -1,0 +1,13 @@
+---
+Name: sectionblockconfig
+After:
+  - 'framework/*'
+  - 'cms/*'
+---
+Injector:
+  SSTemplateParser:
+    properties:
+      closedBlocks:
+        section: ['\Moo\Template\Parser\SectionBlock', 'section']
+      openBlocks:
+        arg: ['\Moo\Template\Parser\SectionBlock', 'arg']
