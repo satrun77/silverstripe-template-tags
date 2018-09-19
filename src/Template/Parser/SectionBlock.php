@@ -66,6 +66,13 @@ class SectionBlock
         $arguments = '[';
         // First the values from '<% arg %>'
         foreach (static::$arguments as $name => $value) {
+            $status = preg_match_all('/{\$(.*)}/sU', $value, $matches, PREG_SET_ORDER, 0);
+            if ($status) {
+                foreach($matches as $index => $match) {
+                    $value = str_replace($match[0], "' . \$scopeValueFinder('\$" . $match[1] . "') .'", $value);
+                }
+            }
+
             $arguments .= "'" . $name . "' => \$scopeValueFinder('" . $value . "'),";
         }
         // Construct 'Content' argument that would hold the content from the body of '<% section %>'
@@ -79,6 +86,7 @@ class SectionBlock
 PHP;
         // Closing the arguments
         $arguments .= ']';
+
         // Clear the values from the static storage
         static::$arguments = [];
 

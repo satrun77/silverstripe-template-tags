@@ -51,3 +51,20 @@ TemplateName.ss
    <p>Are you a {$Someone}</p> <--- will output Github user
 </div>
 ```
+
+- Parameters can accept dynamic variables
+```
+<% section TemplateName %>
+    <% arg 'Theme=$Theme' %>
+    <% arg 'Someone=Github user: {$ID}-{$Title}' %>
+    <h1>Hello world</h1>
+<% end_section %>
+```
+
+TemplateName.ss
+```
+<div class="theme--{$Theme}"> <---- will output the value of argument
+   {$Content}  <------------------- will output <h1>Hello world</h1>
+   <p>Are you a {$Someone}</p> <--- will output Github user: 1-Page title:  assuming $ID & $Title properties within a page type 
+</div>
+```
