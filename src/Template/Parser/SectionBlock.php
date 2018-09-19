@@ -55,7 +55,7 @@ class SectionBlock
      * @param array $res
      * @return string
      */
-    public static function section($res)
+    public static function template($res)
     {
         // Get string of the section first parameter
         $templateVariable = trim($res['Arguments'][0]['text']);
@@ -66,14 +66,7 @@ class SectionBlock
         $arguments = '[';
         // First the values from '<% arg %>'
         foreach (static::$arguments as $name => $value) {
-            $status = preg_match_all('/{\$(.*)}/sU', $value, $matches, PREG_SET_ORDER, 0);
-            if ($status) {
-                foreach($matches as $index => $match) {
-                    $value = str_replace($match[0], "' . \$scopeValueFinder('\$" . $match[1] . "') .'", $value);
-                }
-            }
-
-            $arguments .= "'" . $name . "' => \$scopeValueFinder('" . $value . "'),";
+            $arguments .= "'" . $name . "' => " . $value . ",";
         }
         // Construct 'Content' argument that would hold the content from the body of '<% section %>'
         // The content is HTML text
@@ -92,20 +85,6 @@ PHP;
 
         // Construct PHP code for the template cache file to render the include template
         $php = <<<PHP
-\$scopeValueFinder = function(\$value) use (\$scope) {
-    if (\$value[0] === '$') {
-        \$name = ltrim(\$value, '$');
-        \$return  = \$scope->locally()->XML_val(\$name, null, true);
-        if (empty(\$return)) {
-            \$return  = \$scope->getItem()->{\$name};
-        }
-    } else {
-        \$return = \$value;
-    }
-
-    return \$return;
-};
-
 if ('{$templateVariable[0]}' === '$') {
     \$val .= \SSViewer::execute_template(
         \$scope->locally()->XML_val('{$template}', null, true), \$scope->getItem(), {$arguments}, \$scope
@@ -124,19 +103,30 @@ PHP;
      * @param array $res
      * @return string
      */
-    public static function arg(array $res)
+    public static function setTemplateVar(array $res)
     {
-        // Remove quote from left/right of the argument
-        $argument = trim($res['Arguments'][0]['text'], "'");
+        $name = $res['Arguments'][0]['text'];
+        $php = <<<PHP
+(function() use (\$scope) {
+    \$val = '';
+    {$res['Template']['php']}
+    return \DBField::create_field(HTMLText::class, trim(\$val));
+})()
+PHP;
+//        dd($php);
 
-        // Split the argument string on the first '=' so that the first item is the argument name
-        // and the reset of the string is the argument value
-        $segments = explode('=', $argument, 2);
-        // Ensure argument name does not include '$' from left side
-        $name = ltrim($segments[0], '$');
-
-        // Store arguments in collection
-        static::$arguments[$name] = $segments[1];
+//        \SSTemplateParser::class;
+//        // Remove quote from left/right of the argument
+//        $argument = trim($res['Arguments'][0]['text'], "'");
+//
+//        // Split the argument string on the first '=' so that the first item is the argument name
+//        // and the reset of the string is the argument value
+//        $segments = explode('=', $argument, 2);
+//        // Ensure argument name does not include '$' from left side
+//        $name = ltrim($segments[0], '$');
+//
+//        // Store arguments in collection
+        static::$arguments[$name] = $php;
 
         return '';
     }

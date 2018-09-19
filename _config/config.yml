@@ -8,6 +8,7 @@ Injector:
   SSTemplateParser:
     properties:
       closedBlocks:
-        section: ['\Moo\Template\Parser\SectionBlock', 'section']
-      openBlocks:
-        arg: ['\Moo\Template\Parser\SectionBlock', 'arg']
+        template: ['\Moo\Template\Parser\SectionBlock', 'template']
+        set: ['\Moo\Template\Parser\SectionBlock', 'setTemplateVar']
+#      openBlocks:
+#        set: ['\Moo\Template\Parser\SectionBlock', 'arg']

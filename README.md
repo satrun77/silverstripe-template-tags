@@ -3,6 +3,19 @@
 
 Provide a section syntax in template. Its similar implementation to <% include %> but with extra features:
 
+### Example
+``` 
+<% template TemplateName %>
+    <% set Theme %>$ClassName<% end_set %>
+    <% set Someone %>
+        Github user: {$ClassName}-{$ID}-{$MenuTitle.XML}
+    <% end_set %>
+
+    <h1>Hello world</h1>
+
+<% end_template %>
+
+```
 - Load template by hard-coding the template name as the first parameter or provide a variable.
 ```
 <% section TemplateName %><% end_section %>
