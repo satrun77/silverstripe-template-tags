@@ -1,6 +1,6 @@
 {
     "name": "moo/template-tags",
-    "description": "",
+    "description": "Provide a several useful template tags.",
     "type": "silverstripe-vendormodule",
     "keywords": [
         "silverstripe",
@@ -25,7 +25,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Moo": "src/"
+            "Moo\\": "src/"
         }
     }
 }
