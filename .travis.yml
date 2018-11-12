@@ -1,0 +1,27 @@
+language: php
+
+env:
+  global:
+    - COMPOSER_ROOT_VERSION="3.1.x-dev"
+
+matrix:
+  include:
+    - php: 7.1
+      env: DB=MYSQL RECIPE_VERSION=4.2.x-dev
+    - php: 7.2
+      env: DB=MYSQL RECIPE_VERSION=4.x-dev
+
+before_script:
+  - phpenv rehash
+  - phpenv config-rm xdebug.ini
+
+  - composer validate
+  - composer require silverstripe/recipe-core "$RECIPE_VERSION"  --no-update
+  - composer install --prefer-dist --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
+
+script:
+  - phpdbg -qrr vendor/bin/phpunit --coverage-clover=coverage.clover
+
+after_success:
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover

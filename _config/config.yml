@@ -1,14 +1,12 @@
 ---
-Name: sectionblockconfig
-After:
-  - 'framework/*'
-  - 'cms/*'
+Name: templatetagsconfig
 ---
-Injector:
-  SSTemplateParser:
+SilverStripe\Core\Injector\Injector:
+  SilverStripe\View\SSTemplateParser:
     properties:
       closedBlocks:
-        template: ['\Moo\Template\Parser\SectionBlock', 'template']
-        set: ['\Moo\Template\Parser\SectionBlock', 'setTemplateVar']
-#      openBlocks:
-#        set: ['\Moo\Template\Parser\SectionBlock', 'arg']
+        template: ['\Moo\Template\Parser\TemplateBlock', 'template']
+        set: ['\Moo\Template\Parser\TemplateBlock', 'set']
+        spaceless: ['\Moo\Template\Parser\Spaceless', 'spaceless']
+      openBlocks:
+        content: ['\Moo\Template\Parser\TemplateBlock', 'content']

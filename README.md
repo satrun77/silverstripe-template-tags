@@ -1,9 +1,32 @@
-# Section block 
+# Template Tags 
 ###### SilverStripe template parser
 
-Provide a section syntax in template. Its similar implementation to <% include %> but with extra features:
+Provide a several template tags for better template implementation. For example an improved `<% include %>`.
 
-### Example
+## Requirements
+
+* SilverStripe CMS ^4.1
+
+## Installation via Composer
+	composer require moo/template-tags
+
+## Usage
+
+### Spaceless
+
+Remove extra whitespaces from around the template syntax & HTML output.
+
+``` 
+<% spaceless %>
+    ... Template syntax and HTML ...
+<% end_spaceless %>
+
+```
+
+### Template
+
+An alternative to `<% include %>`
+
 ``` 
 <% template TemplateName %>
     <% set Theme %>$ClassName<% end_set %>
@@ -16,68 +39,62 @@ Provide a section syntax in template. Its similar implementation to <% include %
 <% end_template %>
 
 ```
-- Load template by hard-coding the template name as the first parameter or provide a variable.
+
+#### Ways to define template name
+
+- By string
 ```
-<% section TemplateName %><% end_section %>
+<% template TemplateName %><% end_template %>
+
+<% template 'Namespace\TemplateName' %><% end_template %>
 ```
-Or,
+
+- By variable or method within an object
 ``` 
-<% section $TemplateName %><% end_section %>
+<% template $TemplateName %><% end_template %>
+
+<% template $Object.Method %><% end_template %>
 ```
 
-- The body of the block can include HTML to be passed to the template in '$Content' variable
+#### The body of the template tag
+
+- The body of the tag can include HTML, template logic, & defined arguments.
 
 ```
-<% section TemplateName %>
+<% template TemplateName %>
     <h1>Hello world</h1>
-<% end_section %>
-```
-
-TemplateName.ss
-```
-<div>
-   {$Content} <--- will output <h1>Hello world</h1>
-</div>
+<% end_template %>
 ```
 
 - The body of the block can include other syntax such as <% include %>
 ```
-<% section TemplateName %>
+<% template TemplateName %>
     <h1>Hello world</h1>
     <% include Icon %>
-<% end_section %>
+<% end_template %>
 ```
 
-- You can pass parameters, one per line! not in same line as '<% include %>
+- You can pass parameters, one per line! not all in same line as '<% include %>
 ```
-<% section TemplateName %>
-    <% arg 'Theme=$Theme' %>
-    <% arg 'Someone=Github user' %>
+<% template TemplateName %>
+    <% set Theme %>$Theme<% end_set %>
+    <% set Someone %>
+        Github user: {$Member.Name}
+    <% end_set %>
+
     <h1>Hello world</h1>
-<% end_section %>
+<% end_template %>
 ```
 
-TemplateName.ss
+TemplateName.ss 
+`<% content %>` Placeholder for the content of the template ie. `<h1>Hello world</h1>`
 ```
-<div class="theme--{$Theme}"> <---- will output the value of argument
-   {$Content}  <------------------- will output <h1>Hello world</h1>
-   <p>Are you a {$Someone}</p> <--- will output Github user
+<div class="theme--{$Theme}">
+   <% content %> 
+   <p>Are you a {$Someone}</p> 
 </div>
 ```
 
-- Parameters can accept dynamic variables
-```
-<% section TemplateName %>
-    <% arg 'Theme=$Theme' %>
-    <% arg 'Someone=Github user: {$ID}-{$Title}' %>
-    <h1>Hello world</h1>
-<% end_section %>
-```
+## License
 
-TemplateName.ss
-```
-<div class="theme--{$Theme}"> <---- will output the value of argument
-   {$Content}  <------------------- will output <h1>Hello world</h1>
-   <p>Are you a {$Someone}</p> <--- will output Github user: 1-Page title:  assuming $ID & $Title properties within a page type 
-</div>
-```
+This module is under the MIT license. View the [LICENSE](LICENSE.md) file for the full copyright and license information.
