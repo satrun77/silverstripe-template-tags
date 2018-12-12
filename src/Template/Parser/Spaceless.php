@@ -20,13 +20,14 @@ class Spaceless
             '/\'(\s+)([^\s\'])/m',
             '/\'(\s+)\'/m',
             '/([^\s\'])(\s+)\';/m',
+            '/>\s+</',
         ];
 
         // Template string code to remove whitespaces from
         $php = $res['Template']['php'];
 
         // Remove whitespaces
-        $php = preg_replace($pattern, ["'$2", "''", "$1';"], $php);
+        $php = preg_replace($pattern, ["'$2", "''", "$1';", '><'], $php);
 
         return $php;
     }
