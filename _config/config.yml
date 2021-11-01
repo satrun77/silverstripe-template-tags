@@ -10,3 +10,7 @@ SilverStripe\Core\Injector\Injector:
         spaceless: ['\Moo\Template\Parser\Spaceless', 'spaceless']
       openBlocks:
         content: ['\Moo\Template\Parser\TemplateBlock', 'content']
+
+SilverStripe\ORM\FieldType\DBString:
+  extensions:
+    - Moo\Template\Extension\SpacelessCast
