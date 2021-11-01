@@ -3,34 +3,27 @@
 namespace Moo\Template\Parser;
 
 /**
- * Class TemplateBlock
+ * Class TemplateBlock.
  */
 class TemplateBlock
 {
     /**
-     * Collection of section arguments
-     *
-     * @var array
+     * Collection of section arguments.
      */
-    protected static $arguments = [];
+    protected static array $arguments = [];
 
     /**
-     * Unique name for content argument
-     *
-     * @var string
+     * Unique name for content argument.
      */
-    protected static $contentName = '{{___CONTENT___}}';
+    protected static string $contentName = '{{___CONTENT___}}';
 
     /**
-     * Provide a template tag in template. Its similar implementation to <% include %>
-     *
-     * @param  array  $res
-     * @return string
+     * Provide a template tag in template. Its similar implementation to <% include %>.
      */
-    public static function template($res)
+    public static function template(array $res): string
     {
         // Create unique name for content
-        static::$contentName = uniqid('__CONTENT__');
+        static::$contentName = uniqid('__CONTENT__', true);
 
         // Name of content argument
         $content = static::$contentName;
@@ -39,7 +32,7 @@ class TemplateBlock
         $arguments = '[';
         // First the values from '<% arg %>'
         foreach (static::$arguments as $name => $value) {
-            $arguments .= "'" . $name . "' => " . $value . ',';
+            $arguments .= "'".$name."' => ".$value.',';
         }
 
         // Construct 'Content' argument that would hold the content from the body of '<% template %>'
@@ -59,7 +52,7 @@ PHP;
         // Clear the values from the static storage
         static::$arguments = [];
 
-        // Render template by lookup code
+        // Render template by lookup code, else argument is string, then render template by name
         if ($res['Arguments'][0]['ArgumentMode'] === 'lookup') {
             $template = str_replace('$$FINAL', 'XML_val', $res['Arguments'][0]['php']);
             $php      = <<<PHP
@@ -67,9 +60,7 @@ PHP;
     {$template}, \$scope->getItem(), {$arguments}, \$scope
 );
 PHP;
-        }
-        // If argument is string, then render template by name
-        else {
+        } else {
             $template = trim($res['Arguments'][0]['text'], "'");
             $php      = <<<PHP
 \$val .= \SilverStripe\View\SSViewer::execute_template(
@@ -82,12 +73,9 @@ PHP;
     }
 
     /**
-     * Set an argument value for the current template
-     *
-     * @param  array  $res
-     * @return string
+     * Set an argument value for the current template.
      */
-    public static function set(array $res)
+    public static function set(array $res): string
     {
         // Get the name of the argument
         $name = $res['Arguments'][0]['text'];
@@ -109,10 +97,7 @@ PHP;
     }
 
     /**
-     * Replaces content tag with placeholder code for rendering the template content
-     *
-     * @param  array  $res
-     * @return string
+     * Replaces content tag with placeholder code for rendering the template content.
      */
     public static function content(array $res)
     {
