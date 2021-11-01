@@ -1,27 +1,14 @@
-<phpunit
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="lib/phpunit/phpunit.xsd"
-        bootstrap="vendor/silverstripe/framework/tests/bootstrap.php"
-        colors="true"
->
-    <testsuites>
-        <testsuite name="Test cases">
-            <directory suffix="Test.php">./tests</directory>
-        </testsuite>
-    </testsuites>
+<phpunit bootstrap="vendor/silverstripe/framework/tests/bootstrap.php" colors="true">
+    <testsuite name="Default">
+        <directory>tests</directory>
+    </testsuite>
 
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">
-            <directory>.</directory>
+            <directory suffix=".php">src/</directory>
             <exclude>
-                <directory>tests/</directory>
-                <directory>_config/</directory>
-                <directory>client/</directory>
-                <directory>docs/</directory>
-                <directory>lang/</directory>
-                <directory>templates/</directory>
+                <directory suffix=".php">tests/</directory>
             </exclude>
         </whitelist>
     </filter>
-
 </phpunit>
