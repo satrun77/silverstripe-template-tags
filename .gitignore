@@ -1,6 +1,5 @@
 # Ignore everything
 _notes/
-templates/
 .php-cs-fixer.cache
 /silverstripe-cache
 /coverage

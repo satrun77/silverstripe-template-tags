@@ -2,6 +2,7 @@
 
 namespace Moo\Test;
 
+use SilverStripe\Core\Config\Config;
 use SilverStripe\Dev\SapphireTest;
 //use PHPUnit_Framework_TestCase;
 use SilverStripe\View\ArrayData;
@@ -13,16 +14,6 @@ use SilverStripe\View\SSViewer;
  */
 class ParseTemplateTest extends SapphireTest
 {
-    protected function setUp(): void
-    {
-        // Add path to templates used for testing
-        SSViewer::add_themes([
-            __DIR__.'/support',
-        ]);
-
-        parent::setUp();
-    }
-
     public function testTemplateUsage()
     {
         // Template to render
@@ -175,6 +166,13 @@ Template;
     {
         // Data to use as template Top context
         $data = $this->getTemplateData();
+
+        // Add path to templates used for testing
+        Config::modify()->set(SSViewer::class, 'themes', [
+            '$public',
+            __DIR__.'/support',
+            '$default',
+        ]);
 
         // Render template
         $output = SSViewer::execute_string($template, $data);

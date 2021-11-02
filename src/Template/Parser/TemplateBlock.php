@@ -42,7 +42,7 @@ class TemplateBlock
 '{$content}' => (function() use (\$scope) {
     \$val = '';
     {$res['Template']['php']}
-    return \SilverStripe\ORM\FieldType\DBField::create_field(\SilverStripe\ORM\FieldType\DBHTMLText::class, trim(\$val));
+    return \\SilverStripe\\ORM\\FieldType\\DBField::create_field(\\SilverStripe\\ORM\\FieldType\\DBHTMLText::class, trim(\$val));
 })(),
 PHP;
 
@@ -56,14 +56,14 @@ PHP;
         if ($res['Arguments'][0]['ArgumentMode'] === 'lookup') {
             $template = str_replace('$$FINAL', 'XML_val', $res['Arguments'][0]['php']);
             $php      = <<<PHP
-\$val .= \SilverStripe\View\SSViewer::execute_template(
+\$val .= \\SilverStripe\\View\\SSViewer::execute_template(
     {$template}, \$scope->getItem(), {$arguments}, \$scope
 );
 PHP;
         } else {
             $template = trim($res['Arguments'][0]['text'], "'");
             $php      = <<<PHP
-\$val .= \SilverStripe\View\SSViewer::execute_template(
+\$val .= \\SilverStripe\\View\\SSViewer::execute_template(
     '{$template}', \$scope->getItem(), {$arguments}, \$scope
 );
 PHP;
@@ -85,7 +85,7 @@ PHP;
 (function() use (\$scope) {
     \$val = '';
     {$res['Template']['php']}
-    return \SilverStripe\ORM\FieldType\DBField::create_field(\SilverStripe\ORM\FieldType\DBHTMLText::class, trim(\$val));
+    return \\SilverStripe\\ORM\\FieldType\\DBField::create_field(\\SilverStripe\\ORM\\FieldType\\DBHTMLText::class, trim(\$val));
 })()
 PHP;
 
@@ -106,7 +106,7 @@ PHP;
 
         // Generate code to extract content of the template from a internal variable
         $php = <<<PHP
-\$val .= \$scope->locally()->XML_val('$content', null, true);
+\$val .= \$scope->locally()->XML_val('{$content}', null, true);
 PHP;
 
         return $php;
