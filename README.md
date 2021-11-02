@@ -1,6 +1,12 @@
 # Template Tags 
 ###### SilverStripe template parser
 
+[![Build Status](https://scrutinizer-ci.com/g/satrun77/silverstripe-template-tags/badges/build.png?b=master)](https://scrutinizer-ci.com/g/satrun77/silverstripe-template-tags/build-status/master)
+[![Code Coverage](https://scrutinizer-ci.com/g/satrun77/silverstripe-template-tags/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/satrun77/silverstripe-template-tags/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/satrun77/silverstripe-template-tags/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/satrun77/silverstripe-template-tags/?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/moo/template-tags/v/stable?format=flat)](https://packagist.org/packages/moo/template-tags)
+[![License](https://poser.pugx.org/moo/template-tags/license?format=flat)](https://packagist.org/packages/moo/template-tags)
+
 Provide a several template tags for better template implementation. For example an improved `<% include %>`.
 
 ## Requirements
