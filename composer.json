@@ -34,6 +34,6 @@
     "scripts": {
         "fix": "php-cs-fixer fix src tests --allow-risky=yes --config=.php-cs-fixer.php",
         "test": "phpunit tests '' flush=1",
-        "coverage": "phpunit tests --coverage-html coverage"
+        "coverage": "phpunit tests --coverage-clover coverage/clover.xml"
     }
 }
