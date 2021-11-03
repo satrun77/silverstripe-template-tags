@@ -90,4 +90,9 @@ Template;
     {
         return html_entity_decode(implode('', func_get_args()), ENT_QUOTES | ENT_XML1, 'UTF-8');
     }
+
+    public static function tearDownAfterClass()
+    {
+        // Disable teardown to prevent db access
+    }
 }

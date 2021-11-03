@@ -4,7 +4,6 @@ namespace Moo\Test;
 
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Dev\SapphireTest;
-//use PHPUnit_Framework_TestCase;
 use SilverStripe\View\ArrayData;
 use SilverStripe\View\SSViewer;
 
@@ -179,5 +178,10 @@ Template;
 
         // Assert template output matches the expected
         $this->assertXmlStringEqualsXmlString($expected, $output);
+    }
+
+    public static function tearDownAfterClass()
+    {
+        // Disable teardown to prevent db access
     }
 }
