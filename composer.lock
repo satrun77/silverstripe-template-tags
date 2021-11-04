@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ec0a7dcdcf06d72a9ea8ffdfcf87100b",
+    "content-hash": "451104b701b965126836779f80350df6",
     "packages": [
         {
             "name": "bramus/ansi-php",
@@ -1111,16 +1111,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.13.0",
+            "version": "v4.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "50953a2691a922aa1769461637869a0a2faa3f53"
+                "reference": "63a79e8daa781cac14e5195e63ed8ae231dd10fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/50953a2691a922aa1769461637869a0a2faa3f53",
-                "reference": "50953a2691a922aa1769461637869a0a2faa3f53",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/63a79e8daa781cac14e5195e63ed8ae231dd10fd",
+                "reference": "63a79e8daa781cac14e5195e63ed8ae231dd10fd",
                 "shasum": ""
             },
             "require": {
@@ -1159,7 +1159,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2021-09-20T12:20:58+00:00"
+            "time": "2021-11-03T20:52:16+00:00"
         },
         {
             "name": "psr/cache",
@@ -3986,6 +3986,66 @@
             "time": "2020-03-05T15:02:03+00:00"
         },
         {
+            "name": "phpstan/phpstan",
+            "version": "0.12.99",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpstan/phpstan.git",
+                "reference": "b4d40f1d759942f523be267a1bab6884f46ca3f7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/b4d40f1d759942f523be267a1bab6884f46ca3f7",
+                "reference": "b4d40f1d759942f523be267a1bab6884f46ca3f7",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1|^8.0"
+            },
+            "conflict": {
+                "phpstan/phpstan-shim": "*"
+            },
+            "bin": [
+                "phpstan",
+                "phpstan.phar"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.12-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHPStan - PHP Static Analysis Tool",
+            "funding": [
+                {
+                    "url": "https://github.com/ondrejmirtes",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/phpstan",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/phpstan",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/phpstan/phpstan",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-09-12T20:09:55+00:00"
+        },
+        {
             "name": "phpunit/php-code-coverage",
             "version": "4.0.8",
             "source": {
@@ -4948,6 +5008,86 @@
             "time": "2020-09-22T09:13:40+00:00"
         },
         {
+            "name": "symbiote/silverstripe-phpstan",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/satrun77/silverstripe-phpstan.git",
+                "reference": "8f92c4dc7e67c317d824941860a97b860e92ea00"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/satrun77/silverstripe-phpstan/zipball/8f92c4dc7e67c317d824941860a97b860e92ea00",
+                "reference": "8f92c4dc7e67c317d824941860a97b860e92ea00",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~7.1",
+                "silverstripe/framework": "~4.3",
+                "silverstripe/vendor-plugin": "^1.0"
+            },
+            "replace": {
+                "silbinarywolf/silverstripe-phpstan": "self.version"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "~0.12.0",
+                "phpstan/phpstan-phpunit": "~0.12.0",
+                "phpunit/phpunit": "^7.5.14 || ^8.0",
+                "squizlabs/php_codesniffer": "^3.0"
+            },
+            "suggest": {
+                "phpstan/phpstan-shim": "~0.11.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symbiote\\SilverstripePHPStan\\": "src/",
+                    "Symbiote\\SilverstripePHPStan\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "phpcs": [
+                    "phpcs -n -l src/ src/Reflection/ src/Rule/ src/Type tests/ tests/Reflection/ tests/Rule/ tests/Type/"
+                ],
+                "phpcbf": [
+                    "phpcbf -n src/ src/Reflection/ src/Rule/ src/Type tests/ tests/Reflection/ tests/Rule/ tests/Type/"
+                ],
+                "phpunit": [
+                    "bash ../../../vendor/bin/phpunit -c \"tests/phpunit.xml\" tests/"
+                ],
+                "phpstan": [
+                    "bash ../../../vendor/bin/phpstan analyse src/ tests/ -c \"tests/phpstan.neon\" -a \"tests/bootstrap-phpstan.php\" --level 4"
+                ]
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Jake Bentvelzen",
+                    "email": "jake@symbiote.com.au"
+                }
+            ],
+            "description": "PHPStan for Silverstripe",
+            "keywords": [
+                "analysis",
+                "php",
+                "phpstan",
+                "scrutinizer",
+                "silverstripe",
+                "static"
+            ],
+            "support": {
+                "source": "https://github.com/satrun77/silverstripe-phpstan/tree/master"
+            },
+            "time": "2021-02-26T05:29:31+00:00"
+        },
+        {
             "name": "symfony/console",
             "version": "v5.3.10",
             "source": {
@@ -5664,7 +5804,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "symbiote/silverstripe-phpstan": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
