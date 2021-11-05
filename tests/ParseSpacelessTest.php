@@ -3,15 +3,10 @@
 namespace Moo\Test;
 
 use SilverStripe\Dev\SapphireTest;
-//use PHPUnit_Framework_TestCase;
 use SilverStripe\View\ArrayData;
 use SilverStripe\View\SSViewer;
 use SilverStripe\View\TemplateGlobalProvider;
 
-/**
- * @internal
- * @coversNothing
- */
 class ParseSpacelessTest extends SapphireTest implements TemplateGlobalProvider
 {
     public function testSimpleSpaceCleanUp()

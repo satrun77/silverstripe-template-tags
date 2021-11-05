@@ -7,10 +7,6 @@ use SilverStripe\Dev\SapphireTest;
 use SilverStripe\View\ArrayData;
 use SilverStripe\View\SSViewer;
 
-/**
- * @internal
- * @coversNothing
- */
 class ParseTemplateTest extends SapphireTest
 {
     public function testTemplateUsage()
