@@ -7,6 +7,9 @@ use SilverStripe\View\ArrayData;
 use SilverStripe\View\SSViewer;
 use SilverStripe\View\TemplateGlobalProvider;
 
+/**
+ * @internal
+ */
 class ParseSpacelessTest extends SapphireTest implements TemplateGlobalProvider
 {
     public function testSimpleSpaceCleanUp()
