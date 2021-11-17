@@ -16,6 +16,9 @@ return $config->setRules([
         'import_constants' => null,
         'import_functions' => null,
     ],
+    'concat_space' => [
+        'spacing' => 'one',
+    ],
     'binary_operator_spaces' => [
         'default' => 'align',
     ],

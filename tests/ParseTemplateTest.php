@@ -12,6 +12,11 @@ use SilverStripe\View\SSViewer;
  */
 class ParseTemplateTest extends SapphireTest
 {
+    public static function tearDownAfterClass()
+    {
+        // Disable teardown to prevent db access
+    }
+
     public function testTemplateUsage()
     {
         // Template to render
@@ -168,7 +173,7 @@ Template;
         // Add path to templates used for testing
         Config::modify()->set(SSViewer::class, 'themes', [
             '$public',
-            __DIR__.'/support',
+            __DIR__ . '/support',
             '$default',
         ]);
 
@@ -177,10 +182,5 @@ Template;
 
         // Assert template output matches the expected
         $this->assertXmlStringEqualsXmlString($expected, $output);
-    }
-
-    public static function tearDownAfterClass()
-    {
-        // Disable teardown to prevent db access
     }
 }

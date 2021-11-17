@@ -32,7 +32,7 @@ class TemplateBlock
         $arguments = '[';
         // First the values from '<% arg %>'
         foreach (static::$arguments as $name => $value) {
-            $arguments .= "'".$name."' => ".$value.',';
+            $arguments .= "'" . $name . "' => " . $value . ',';
         }
 
         // Construct 'Content' argument that would hold the content from the body of '<% template %>'
