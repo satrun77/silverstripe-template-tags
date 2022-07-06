@@ -4,6 +4,9 @@ namespace Moo\Template\Parser;
 
 /**
  * Class Spaceless provides template tag to remove white spaces from around wrapped code.
+ *
+ * @phpcs:disable SlevomatCodingStandard.Files.FunctionLength.FunctionLength
+ * @phpcs:disable SlevomatCodingStandard.Functions.FunctionLength.FunctionLength
  */
 class Spaceless
 {
@@ -49,12 +52,8 @@ class Spaceless
 
     /**
      * Remove white spaces from around template code.
-     *
-     * @param array $res
-     *
-     * @return ?string
      */
-    public static function spaceless($res)
+    public static function spaceless(array $res): string
     {
         // Template string code to remove whitespaces from
         $php = $res['Template']['php'];
@@ -64,6 +63,7 @@ class Spaceless
 
         // Clean up each i  tem in the array
         $index = 0;
+
         foreach ($code as $key => $line) {
             $code[$key] = static::cleanCode((string) $line, $index);
             ++$index;

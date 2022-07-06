@@ -23,7 +23,7 @@ class SpacelessCast extends Extension
                 'Template' => [
                     'php' => $this->getOwner()->RAW(),
                 ],
-            ])
+            ]),
         );
     }
 }

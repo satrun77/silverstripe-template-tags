@@ -12,12 +12,12 @@ use SilverStripe\View\TemplateGlobalProvider;
  */
 class ParseSpacelessTest extends SapphireTest implements TemplateGlobalProvider
 {
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
         // Disable teardown to prevent db access
     }
 
-    public function testSimpleSpaceCleanUp()
+    public function testSimpleSpaceCleanUp(): void
     {
         $template = <<<'Template'
 <% spaceless %>
@@ -32,28 +32,30 @@ Template;
         $this->assertNotEquals(' ... Template syntax and HTML ...', $output);
     }
 
-    public function testWithTemplateFunctionIncludeValidSpaces()
+    public function testWithTemplateFunctionIncludeValidSpaces(): void
     {
         $template = <<<'Template'
 <% spaceless %>
-    ... Template syntax and <strong>One</strong> <strong> Two</strong>HTML$Concat(' ', 'One', ' ', 'Two', ' - ', 'Three') ...
+    ... Template syntax and <strong>One</strong> <strong> Two</strong>
+    HTML$Concat(' ', 'One', ' ', 'Two', ' - ', 'Three') ...
     ... Template syntax and HTML{$Concat(' ', 'One', ' ', 'Two', ' - ', 'Three')}...
     ...
 <% end_spaceless %>
 Template;
-        $output = SSViewer::execute_string($template, []);
+        $output = SSViewer::execute_string($template, ArrayData::create([]));
         $this->assertEquals(
-            '... Template syntax and <strong>One</strong><strong> Two</strong>HTML One Two - Three ... ... Template syntax and HTML One Two - Three... ...',
+            '... Template syntax and <strong>One</strong><strong> Two</strong> HTML One Two - Three ... ... ' .
+            'Template syntax and HTML One Two - Three... ...',
             $output
         );
     }
 
-    public function testWithTemplateFunctionIncludeHtml()
+    public function testWithTemplateFunctionIncludeHtml(): void
     {
         $template = <<<'Template'
 <% spaceless %>
     {$Hello($Name).Spaceless}!
-    
+
     <div>Some random text....</div>
 <% end_spaceless %>
 Template;
@@ -66,7 +68,10 @@ Template;
         );
     }
 
-    public static function get_template_global_variables()
+    /**
+     * {@inheritDoc}
+     */
+    public static function get_template_global_variables(): array
     {
         return [
             'Hello' => [

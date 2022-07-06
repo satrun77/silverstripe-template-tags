@@ -4,6 +4,12 @@ namespace Moo\Template\Parser;
 
 /**
  * Class TemplateBlock.
+ *
+ * @phpcs:disable SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing.IncorrectLinesCountBeforeControlStructure
+ * @phpcs:disable Generic.Files.LineLength.TooLong
+ * @phpcs:disable SlevomatCodingStandard.Files.LineLength.LineTooLong
+ * @phpcs:disable SlevomatCodingStandard.Files.FunctionLength.FunctionLength
+ * @phpcs:disable SlevomatCodingStandard.Functions.FunctionLength.FunctionLength
  */
 class TemplateBlock
 {
@@ -30,6 +36,7 @@ class TemplateBlock
 
         // Construct an array for template extra arguments
         $arguments = '[';
+
         // First the values from '<% arg %>'
         foreach (static::$arguments as $name => $value) {
             $arguments .= "'" . $name . "' => " . $value . ',';
@@ -99,16 +106,14 @@ PHP;
     /**
      * Replaces content tag with placeholder code for rendering the template content.
      */
-    public static function content(array $res)
+    public static function content(array $res): string
     {
         // Name of content argument
         $content = static::$contentName;
 
         // Generate code to extract content of the template from a internal variable
-        $php = <<<PHP
+        return <<<PHP
 \$val .= \$scope->locally()->XML_val('{$content}', null, true);
 PHP;
-
-        return $php;
     }
 }

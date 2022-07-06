@@ -12,12 +12,12 @@ use SilverStripe\View\SSViewer;
  */
 class ParseTemplateTest extends SapphireTest
 {
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
         // Disable teardown to prevent db access
     }
 
-    public function testTemplateUsage()
+    public function testTemplateUsage(): void
     {
         // Template to render
         $template = <<<'Template'
@@ -48,7 +48,7 @@ Template;
         $this->assertTemplate($template, $expected);
     }
 
-    public function testTemplateNameWithNamespace()
+    public function testTemplateNameWithNamespace(): void
     {
         // Template to render
         $template = <<<'Template'
@@ -78,7 +78,7 @@ Template;
         $this->assertTemplate($template, $expected);
     }
 
-    public function testTemplateWithVarAsFileName()
+    public function testTemplateWithVarAsFileName(): void
     {
         // Template to render
         $template = <<<'Template'
@@ -108,7 +108,7 @@ Template;
         $this->assertTemplate($template, $expected);
     }
 
-    public function testTemplateNameFromMethod()
+    public function testTemplateNameFromMethod(): void
     {
         // Template to render
         $template = <<<'Template'
