@@ -11,7 +11,7 @@ Provide a several template tags for better template implementation. For example 
 
 ## Requirements
 
-* SilverStripe CMS ^4.1
+* SilverStripe CMS ^5.0
 
 ## Installation via Composer
 	composer require moo/template-tags
