@@ -37,9 +37,11 @@ class TemplateBlock
         // Construct an array for template extra arguments
         $arguments = '[';
 
-        // First the values from '<% arg %>'
+        // First the values from '<% arg %>', and store the used arguments in a collection
+        $processedArguments = [];
         foreach (static::$arguments as $name => $value) {
             $arguments .= "'" . $name . "' => " . $value . ',';
+            $processedArguments[] = $name;
         }
 
         // Construct 'Content' argument that would hold the content from the body of '<% template %>'
@@ -56,8 +58,15 @@ PHP;
         // Closing the arguments
         $arguments .= ']';
 
-        // Clear the values from the static storage
-        static::$arguments = [];
+        // Clear only the used arguments in current template from the static storage
+        foreach ($processedArguments as $argument) {
+            $matches = preg_grep('/<%\s+set\s+(' . $argument . ')\s+%>/', [$res['Template']['text']]);
+            if (isset($matches[0])) {
+                unset(static::$arguments[$argument]);
+            }
+            unset($matches);
+        }
+        unset($processedArguments);
 
         // Render template by lookup code, else argument is string, then render template by name
         if ($res['Arguments'][0]['ArgumentMode'] === 'lookup') {
