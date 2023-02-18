@@ -17,6 +17,72 @@ class ParseTemplateTest extends SapphireTest
         // Disable teardown to prevent db access
     }
 
+    public function testMultipleNestedTemplate(): void
+    {
+        // Template to render
+        $template = <<<'Template'
+<% template Root %>
+    <% set Header %>
+        <h1>Hello world</h1>
+    <% end_set %>
+    <% set Body %>
+        <% template Nested %>
+            <% set Tag %>
+                <% template 'Includes\\Tags' %>
+                <% end_template %>
+            <% end_set %>
+            <% set NestedHeader %>
+                <h2>Nested world</h2>
+            <% end_set %>
+        <% end_template %>
+    <% end_set %>
+<% end_template %>
+Template;
+
+        // The expected output
+        $expected = <<<'Template'
+<div>
+<h1>Hello world</h1>
+<h2>Nested world</h2>
+<p>Nested amazing content</p>
+<div>Tag1, Tag2</div>
+</div>
+Template;
+
+        // Assert template output matches the expected
+        $this->assertTemplate($template, $expected);
+    }
+
+    public function testNestedTemplate(): void
+    {
+        // Template to render
+        $template = <<<'Template'
+<% template Root %>
+    <% set Header %>
+        <h1>Hello world</h1>
+    <% end_set %>
+    <% set Body %>
+        <% template Nested %>
+            <% set NestedHeader %>
+                <h2>Nested world</h2>
+            <% end_set %>
+        <% end_template %>
+    <% end_set %>
+<% end_template %>
+Template;
+
+        // The expected output
+        $expected = <<<'Template'
+<div>
+<h1>Hello world</h1>
+<h2>Nested world</h2>
+<p>Nested amazing content</p>
+</div>
+Template;
+
+        // Assert template output matches the expected
+        $this->assertTemplate($template, $expected);
+    }
     public function testTemplateUsage(): void
     {
         // Template to render
